@@ -1,0 +1,422 @@
+@charset "UTF-8";
+.limiter {
+    width: 100%;
+    margin: 0 auto;
+}
+
+.btn-close {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    position: absolute;
+    background-color: #EE2326;
+    /* padding: 1.5px 7px; */
+    top: -15px;
+    right: -15px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    color: white;
+    -webkit-box-shadow: -4px -2px 6px 0px rgba(0, 0, 0, 0.1);
+    -moz-box-shadow: -4px -2px 6px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: -3px 1px 6px 0px rgba(0, 0, 0, 0.1);
+}
+
+.btn-close span {
+    color: #fff;
+    font-size: 25px;
+    display: flex;
+    justify-content: center;
+    margin-top: 8%;
+}
+
+.btn-close:hover {
+    background-color: #fff;
+    border-color: #EE2326;
+}
+
+.btn-close-login:hover {
+    transform: scale(1.2);
+}
+
+.btn-close span:hover {
+    /* background-color: #fff; */
+    color: #EE2326;
+}
+
+.container-login {
+    /* position: relative; */
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    /* position: fixed; */
+    z-index: 100;
+    transition: all 0.3s linear;
+    /* opacity: 0; */
+}
+
+.active {
+    /* display:flex; */
+    opacity: 1;
+    z-index: 4000;
+}
+
+.container-login::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: rgba(255, 255, 255, 0.9);
+}
+
+.content-login {
+    position: relative;
+}
+
+#icon-eye-password {
+    transition: 0.1 all ease;
+}
+
+#icon-eye-password:hover {
+    transform: scale(1.4);
+}
+
+.wrap-login {
+    /* position: relative; */
+    align-content: center;
+    width: 500px;
+    border-radius: 10px;
+    overflow: hidden;
+    padding: 55px 55px 37px 55px;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    /* background: #9152f8; */
+    /* background: linear-gradient(top, #7579ff, #b224ef); */
+}
+
+
+/*------------------------------------------------------------------
+[ Form ]*/
+
+.login-form-logo {
+    font-size: 60px;
+    color: #333333;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-color: #fff;
+    margin: -5% auto 7%;
+}
+
+.logo-image {
+    background-size: cover;
+    width: 100%;
+    border-radius: 50%;
+}
+
+.login-form-title {
+    font-family: Poppins-Medium;
+    font-size: 30px;
+    color: #fff;
+    line-height: 1.2;
+    text-align: center;
+    text-transform: uppercase;
+    display: block;
+    margin: -2% auto 5.5%;
+}
+
+
+/*------------------------------------------------------------------
+[ Input ]*/
+
+.toogle-password {
+    display: block;
+    width: 40px;
+    height: 40px;
+    /* text-align: right; */
+    font: 17px sans-serif, bold;
+    position: relative;
+    top: -30px;
+    right: -90%;
+}
+
+.wrap-input {
+    width: 100%;
+    position: relative;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.24);
+    margin-bottom: 30px;
+}
+
+.input {
+    font-family: Poppins-Regular;
+    font-size: 19px;
+    color: #000;
+    line-height: 1.2;
+    display: block;
+    width: 100%;
+    height: 45px;
+    background: #ffffff;
+    padding: 0 5px 0 10px;
+}
+
+
+/*---------------------------------------------*/
+
+.focus-input {
+    position: absolute;
+    display: block;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+.focus-input::before {
+    content: "";
+    display: block;
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    transition: all 0.4s;
+    background: #fff;
+}
+
+.focus-input::after {
+    font-family: Material-Design-Iconic-Font;
+    font-size: 22px;
+    color: #fff;
+    content: attr(data-placeholder);
+    display: block;
+    width: 100%;
+    position: absolute;
+    top: 6px;
+    left: 0px;
+    padding-left: 5px;
+    transition: all 0.4s;
+}
+
+.input:focus {
+    padding-left: 5px;
+}
+
+.input:focus+.focus-input::after {
+    top: -22px;
+    font-size: 18px;
+}
+
+.input:focus+.focus-input::before {
+    width: 100%;
+}
+
+.has-val.input {
+    padding-left: 5px;
+    box-shadow: 0 10px 10px #DDDDDD;
+    border-radius: 10px;
+}
+
+.has-val.input+.focus-input::after {
+    top: -22px;
+    font-size: 18px;
+}
+
+.has-val.input+.focus-input::before {
+    width: 100%;
+}
+
+
+/*==================================================================
+[ Restyle Checkbox ]*/
+
+.contact-form-checkbox {
+    padding-left: 5px;
+    padding-top: 5px;
+    padding-bottom: 35px;
+}
+
+.input-checkbox {
+    background-color: #ffffff;
+    display: none;
+}
+
+.custom-control-label {
+    font-family: Poppins-Regular;
+    font-size: 19px;
+    color: #fff;
+    line-height: 1.2;
+    display: block;
+    position: relative;
+    padding-left: 10px;
+    cursor: pointer;
+    margin-left: -5px;
+}
+
+.custom-control-input:checked~.custom-control-label::before {
+    background-color: #EE2327;
+    border-color: #fff;
+    /* color: #EE2327; */
+    cursor: pointer;
+}
+
+
+/* 
+
+/*------------------------------------------------------------------
+[ Button ]*/
+
+.container-login-form-btn {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-form {
+    margin-top: -5%;
+    justify-content: center
+}
+
+.login-form-btn {
+    font-family: Poppins-Regular;
+    /* font-family: Poppins-Medium; */
+    font-size: 19px;
+    color: #fff;
+    line-height: 1.2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0 20px;
+    min-width: 120px;
+    height: 50px;
+    border-radius: 25px;
+    border: #fff 1px solid;
+    /* background: #EE2327; */
+    background-color: #EE2327;
+    /* background: linear-gradient(bottom, #7579ff, #b224ef); */
+    position: relative;
+    /* z-index: 1; */
+    /* transition: 0.3s; */
+    transition: all 0.2s ease;
+    text-transform: uppercase;
+}
+
+.login-form-btn::before {
+    content: "";
+    display: block;
+    position: absolute;
+    z-index: -1;
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    background-color: #fff;
+    transition: all 1s;
+}
+
+.login-form-btn:hover {
+    /* background-color: #fff; */
+    background: #fff;
+    color: #EE2326;
+    border-color: #EE2326;
+    transform: scale(1.2);
+}
+
+.login-form-btn:hover:before {
+    opacity: 0;
+}
+
+.forget-form {
+    padding-top: 3%;
+    justify-content: center;
+}
+
+.btn-forget {
+    color: #fff;
+    font-family: Poppins-Regular;
+    font-size: 17px;
+}
+
+.btn-forget:hover {
+    color: #fff;
+}
+
+
+/*------------------------------------------------------------------
+[ Responsive ]*/
+
+@media (max-width: 576px) {
+    .wrap-login {
+        padding: 55px 15px 37px 15px;
+    }
+}
+
+
+/*------------------------------------------------------------------
+[ Alert validate ]*/
+
+.validate-input {
+    position: relative;
+}
+
+.alert-validate::before {
+    content: attr(data-validate);
+    position: absolute;
+    max-width: 70%;
+    background-color: #fff;
+    border: 1px solid #c80000;
+    border-radius: 2px;
+    padding: 4px 25px 4px 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 0px;
+    pointer-events: none;
+    font-family: Poppins-Regular;
+    color: #c80000;
+    font-size: 13px;
+    line-height: 1.4;
+    text-align: left;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.4s;
+}
+
+.alert-validate::after {
+    content: "\F12A";
+    font-family: FontAwesome;
+    font-size: 16px;
+    color: #c80000;
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 5px;
+}
+
+.alert-validate:hover:before {
+    visibility: visible;
+    opacity: 1;
+}
+
+@media (max-width: 992px) {
+    .alert-validate::before {
+        visibility: visible;
+        opacity: 1;
+    }
+}
