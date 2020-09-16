@@ -25,9 +25,6 @@
                     <div class="col-sm-4">
                         <h3>Ma trận</h3>
                         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-                       
-                           
-                         
                             <div class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                     <h4 class="panel-title">
@@ -35,7 +32,7 @@
                                             <i class="more-less glyphicon glyphicon-plus"></i>Chi tiết ma trận
                                         </a>
                                     </h4>
-                                </div>
+                                </div>  
                                 <div id="collapseOne" class="panel-collapse collapse">
                                     <div class="panel-body">
                                         <div class="list-group">
@@ -43,7 +40,7 @@
                                             <a href="#" class="list-group-item">{{ $matrix->number_question }}</a>
                                             <a href="#" class="list-group-item">{{ $matrix->group->name }}</a>
                                             <a href="#" class="list-group-item">{{ $matrix->subject->name }}</a>
-                                            <input type="hidden" name="" id="matrix_id" value="{{ $matrix->id }}">
+                                            <input type="hidden" name="" id="matrixId" value="{{ $matrix->id }}">
                                         </div> 
                                     </div>
                                 </div>
@@ -64,9 +61,9 @@
                             </div>
                 
                             <div class="panel panel-default">
-                                <div class="panel-heading" role="tab" id="headingTwo">
+                                <div class="panel-heading" onclick="collapseHandsome()"  role="tab" id="headingThere">
                                     <h4 class="panel-title">
-                                        <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThere" aria-expanded="false" aria-controls="collapseThere">
+                                        <a class="collapsed"  role="button" data-toggle="collapse" data-parent="#accordion" href="#collapseThere" aria-expanded="false" aria-controls="collapseThere">
                                             <i class="more-less glyphicon glyphicon-plus"></i> Tạo đề thi thủ công
                                         </a>
                                     </h4>
@@ -75,7 +72,7 @@
                                     <div class="panel-body">
                                         <div class="form-group">
                                             <label for="">Chuyên đề</label>
-                                            <select onchange="select_topic(this.value)" class="select_topic browser-default custom-select">
+                                            <select onchange="selectTopic(this.value)" class="select-topic browser-default custom-select">
                                                 @foreach ($details as $detail)
                                                 <option  value="{{ $detail->topic_id }}">{{ $detail->topic->name }}</option> 
                                                 @endforeach
@@ -83,7 +80,7 @@
                                         </div>
                                         <div class="form-group">
                                             <label for="">Phân loại</label>
-                                            <select  onchange="select_difficult(this.value)" class="select_difficult browser-default custom-select">
+                                            <select  onchange="selectDifficult(this.value)" class="select-difficult browser-default custom-select">
                                                 <option selected value="1">Nhận biết</option>
                                                 <option value="2">Thông hiểu</option>
                                                 <option value="3">Vận dụng</option>
@@ -91,60 +88,134 @@
                                             </select>
                                         </div>
                                         <div class="list-group">
-                                            <a href="#" id="number_question" class="list-group-item"></a>
-                                            <a href="#" id="number_matrix"class="list-group-item"> Số câu tối đa: <p  ></p> </a>
-                                            <a href="#" class="list-group-item">Số câu đã chọn:</a>
-                                          </div> 
-                                           
-                                        
-
+                                            <a href="#" id="numberMatrix" class="list-group-item">Số lượng câu hỏi ma trận: {{ $matrix->number_question }}</a>
+                                            <a href="#" id="numberQuestion" class="list-group-item"></a>
+                                            <a href="#" id="numberTopicMatrix"class="list-group-item"> Số câu tối đa: <p  ></p> </a>
+                                            <a href="#" id="numberChoose"class="list-group-item"></a>
+                                        </div> 
                                     </div>
                                 </div>
                             </div>
-                          </div>
+                        </div>
+                        {{--  <div class="panel-group" id="accordion">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse1">
+                                           Chi tiết ma trận
+                                        </a>
+                                    </h4>
+                                </div>
+
+                                <div id="collapse1" class="panel-collapse collapse in">
+                                    <div class="panel-body">
+                                        <a href="#" class="list-group-item">{{ $matrix->name }}</a>
+                                            <a href="#" class="list-group-item">{{ $matrix->number_question }}</a>
+                                            <a href="#" class="list-group-item">{{ $matrix->group->name }}</a>
+                                            <a href="#" class="list-group-item">{{ $matrix->subject->name }}</a>
+                                            <input type="hidden" name="" id="matrix_id" value="{{ $matrix->id }}">
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse2">Description
+
+                                                </a>
+                                    </h4>
+                                </div>
+
+                                <div id="collapse2" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <p>Lorem </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    <h4 class="panel-title">
+                                        <a class="accordion-toggle" data-toggle="collapse" data-parent="#accordion" href="#collapse3">Goals
+
+                                                </a>
+                                    </h4>
+                                </div>
+
+                                <div id="collapse3" class="panel-collapse collapse">
+                                    <div class="panel-body">
+                                        <p>Lorem ipsum dolor sit </p>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>  --}}
                     </div>
                     <div class="col-sm-8 content_test">
                         <div class="row">
                             <div class="col-md-5 "   >
                                 <h4>Tổng số câu hỏi</h4>
-                                <div class="overflow-auto rounded border border-primary" style="height:300px;">
-                                    <table class="table"  width="100%">
-                                        <thead>
+                                <div class="overflow-auto rounded border border-primary" style="height:250px;">
+                                    <table class="table" style="position: relative;"  width="100%">
+                                        <thead >
                                             <th>
-                                                <div style="padding-left: 2px" class="custom-control  custom-checkbox custom-control-inline">
-                                                    <input type="checkbox" class=" checkbox custom-control-input" id="selectAll">
-                                                    <label style="margin-bottom:2px" class="custom-control-label" for="selectAll"></label>
-                                                </div>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="selectAll" >
+                                                    <label class="custom-control-label" for="selectAll"></label>
+                                                  </div>
                                             </th>
                                             <th scope="col">#</th>
                                             <th scope="col">Content</th>
                                           </tr>
                                         </thead>
-                                        <tbody class="box-question ">
+                                        <tbody class="box-export"  align="justify">
                                        
                                         </tbody>
-                                      </table>
+                                    </table>
                                 </div>
                                 
                             </div>
                             <div class="col-md-2 double-button">
-                                    <button class="btn btn-outline-primary" type="button"><i class="fa fa-2x fa-angle-double-right"></i></button>
-                                    <button class="btn btn-outline-primary" type="button"><i class="fa fa-2x fa-angle-double-left"></i></button>
+                                <button class="btn btn-outline-primary" onclick="export_question()" type="button"><i class="fa fa-2x fa-angle-double-right"></i></button>
+                                <button class="btn btn-outline-primary" onclick="import_question()" type="button"><i class="fa fa-2x fa-angle-double-left"></i></button>
                             </div>
-                            <div class="col-md-5 "   >
+                            <div class="col-md-5">
                                 <h4>Câu hỏi ra đề</h4>
-                                <div class="overflow-auto rounded border border-primary"style="height:300px;">
+                                <div class="overflow-auto rounded border border-primary"style="height:250px;">
+                                    <table class="table"  width="100%">
+                                        <thead>
+                                            <th>
+                                                <div class="custom-control custom-checkbox">
+                                                    <input type="checkbox" class="custom-control-input" id="selectAll" >
+                                                    <label class="custom-control-label" for="selectAll"></label>
+                                                  </div>
+                                            </th>
+                                            <th scope="col">#</th>
+                                            <th scope="col">Content</th>
+                                          </tr>
+                                        </thead>
+                                        <tbody class="box-import" >
 
+                                        </tbody>
+                                    </table>
                                 </div>
                                 
                             </div>
                         </div>
-                        <div class="row">
-                            <h4>Nội dung</h4>
-                            
+                        <div class="row" style="margin-top:20px">
+                            <h3>Nội dung</h3>
+                            <div class="overflow-auto rounded border border-primary" style="height: 300px; width:100%" >
+                                
+                                <div class="box_content" style="margin:20px">
+
+                                </div>
+
+                            </div>
+
                         </div>
                     </div>
-
+                    <button type="submit" onclick="store()" class="btn btn-success">SAVE</button>
                 </div>
             </div>
         </div>

@@ -5,6 +5,7 @@ namespace App\Model;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use App\Notifications\NewAdvisory;
 
 class User extends Authenticatable
 {

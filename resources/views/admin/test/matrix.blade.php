@@ -42,7 +42,7 @@
                                 <td>{{ $matrix->group->name }}</td>
                                 <td>
                                     <div class="custom-control custom-radio" >
-                                        <input type="radio" onclick="choose_matrix({{ $matrix->id }})" class="custom-control-input matrix_id" value="{{ $matrix->id }}" id="{{ $matrix->id }}" name="groupOfDefaultRadios">
+                                        <input type="radio" onclick="chooseMatrix({{ $matrix->id }})" class="custom-control-input matrix_id" value="{{ $matrix->id }}" id="{{ $matrix->id }}" name="groupOfDefaultRadios">
                                         <label class="custom-control-label" for="{{ $matrix->id }}"></label>
                                       </div>
                                 </td>
@@ -51,11 +51,8 @@
                     </tbody>
                 </table>
             </div>
-          <form action="{{ route('admin.test.created') }}" method="POST">
-              @csrf
-              <input type="hidden" name="matrix_id" id="matrix-input" value="">
-            <button type="submit" class="btn btn-success">SAVE</button>
-        </form>
+          
+            <a href="" id="hrefSave" class="btn btn-success">SAVE</a>
         </div>
     </div>
 </div>

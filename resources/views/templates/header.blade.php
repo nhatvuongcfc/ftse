@@ -17,13 +17,16 @@
     <!-- Custom fonts for this template -->
     <link href=" {{ asset('vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" />
     <link rel="stylesheet" href="{{ asset('vendor/simple-line-icons/css/simple-line-icons.css') }}" />
+    <link rel="stylesheet" href="{{ asset('fonts/iconic/css/material-design-iconic-font.min.css') }}" />
     <link href="https://fonts.googleapis.com/css?family=Lato" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Catamaran:100,200,300,400,500,600,700,800,900" rel="stylesheet" />
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet" />
+    {{-- <link rel="stylesheet" type="text/css" href="fonts/iconic/css/material-design-iconic-font.min.css"> --}}
 
     <!-- Plugin CSS -->
 
     <!-- Custom styles for this template -->
+    <link rel="stylesheet" href="{{ asset('css/user/index.css') }}">
     <link rel="stylesheet" href="{{ asset('css/user/index.css') }}">
     <link rel="stylesheet" href="{{ asset('css/user/login.css') }}">
     <link rel="stylesheet" href="{{ asset('owlcarousel/assets/owl.theme.default.min.css') }}">

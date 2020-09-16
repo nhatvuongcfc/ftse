@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Transcript;
+use App\Model\Transcript;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminTranscriptController extends Controller
 {

@@ -1,0 +1,50 @@
+/* Required height of parents of the Full Page Carousel for proper displaying carousel itself */
+
+.view {
+    height: 100%;
+}
+
+
+/* Full Page Carousel itself*/
+
+.carousel {
+    height: 100%;
+}
+
+.carousel .carousel-inner {
+    height: 100%;
+}
+
+.carousel .carousel-inner .carousel-item,
+.carousel .carousel-inner .active {
+    height: 100%;
+}
+
+
+/* Navbar animation */
+
+.top-nav-collapse {
+    /* background-color: #ffffff; */
+    /* background-image: url("/public/image/user/bg_1.jpg"); */
+    background-image: url("https://fasttrack.edu.vn/wp-content/uploads/2019/11/header-bg.jpg");
+    /* background-image: url("/public/image/user/menu.jpg"); */
+}
+
+
+/* .top-nav-collapse */
+
+
+/* Adding color to the Navbar on mobile */
+
+@media only screen and (max-width: 768px) {
+    .navbar {
+        background-color: #1C2331;
+    }
+}
+
+
+/* Footer color for sake of consistency with Navbar */
+
+.page-footer {
+    background-color: #1C2331;
+}

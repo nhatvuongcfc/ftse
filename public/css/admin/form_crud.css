@@ -5,6 +5,40 @@ body {
     font-family: 'Roboto', sans-serif;
 }
 
+.custom-file-input:lang(en)~.custom-file-label::after {
+    content: "Browse";
+    background-color: #007BFF;
+    color: #fff;
+}
+
+.content-header {
+    padding: 15px 0.5rem 0px 0.5rem;
+}
+
+.card-header>.card-tools {
+    margin-right: -.625rem;
+}
+
+.fa-trash-alt:before {
+    content: "\f2ed"
+}
+
+.menu-right {
+    display: inline;
+}
+
+.menu-left {
+    display: inline;
+}
+
+.float-left {
+    float: left !important;
+}
+
+.float-right {
+    float: right !important;
+}
+
 .table-responsive {
     margin: 30px 0;
 }
@@ -69,10 +103,6 @@ table.table th i {
     font-size: 13px;
     margin: 0 5px;
     cursor: pointer;
-}
-
-table.table td:last-child {
-    width: 130px;
 }
 
 table.table td a {
@@ -402,7 +432,7 @@ table.table td i {
 } */
 
 .custom-select {
-    font-size: 1.5rem;
+    font-size: 1rem;
 }
 
 .rounded {
@@ -418,12 +448,16 @@ table.table td i {
     align-content: center;
 }
 
+.custom-control-label {
+    cursor: pointer;
+}
+
 .custom-control-label::before {
     width: 1.5rem;
     height: 1.5rem;
 }
 
 .custom-control-label::after {
-    top: 0.01rem;
-    left: -1.7rem;
+    width: 1.5rem;
+    height: 1.5rem;
 }

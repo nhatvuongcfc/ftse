@@ -4,6 +4,7 @@
 @endsection
 @section('js')
     <script src="{{ asset('js/admin/matrix.js') }}"></script>
+    {{--  <script src="{{ asset('js/admin/matrixEdit.js') }}"></script>  --}}
 @endsection
 @section('content')
 
@@ -17,12 +18,12 @@
 
                               <label for="name">Tên ma trận</label>
                               <input type="text" value="{{ $matrix->name }}"  required class="form-control" id="name_matrix" placeholder="Tên ma trận">
-                              <input type="hidden" id="matrix_id" value="{{ $matrix->id }}"  required class="form-control" id="name_matrix" placeholder="Tên ma trận">
+                              <input type="hidden" id="matrixId" value="{{ $matrix->id }}"  required class="form-control" id="name_matrix" placeholder="Tên ma trận">
                             </div>
                           
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">Khối lớp</label>
-                                <select id="create_group" class="browser-default custom-select">
+                                <select id="selectGroup" onchange="selectGroup(this.value)"  class="browser-default custom-select">
                                     @foreach ($groups as $group)
                                         @if( $matrix->group_id == $group->id)
                                             <option selected class="alert alert-danger" value="{{ $group->id }}">{{ $group->name }}</option>    
@@ -34,8 +35,7 @@
                             </div>
                             <div class="form-group">
                                 <label for="formGroupExampleInput2">Môn học</label>
-                                <select id="create_subject" class="browser-default custom-select">
-                                         
+                                <select id="selectSubject" onchange="selectSubject(this.value)"  class="browser-default custom-select">
                                     @foreach ($subjects as $subject)
                                         @if( $matrix->subject_id == $subject->id)
                                             <option selected class="alert alert-danger" value="{{ $subject->id }}">{{ $subject->name }}</option>    
@@ -48,9 +48,9 @@
                             <div class="form-group">
                                 <label for="number_question">Số lượng câu hỏi</label>
                                 <div class=" def-number-input number-input safari_only">
-                                    <button onclick="minus_number_question()" class="minus"></button>
-                                    <input  onfocus="focus_input(this)" class="number_question"  min="0" value="{{ $matrix->number_question }}" type="number">
-                                    <button onclick="plus_number_question()" class="plus"></button>
+                                    <button onclick="minusTotalQuestion()" class="minus"></button>
+                                    <input  name="number" onfocus="focusInput(this)" class="total-question" value="{{ $matrix->number_question }}" min="0" value="0" type="number">
+                                    <button onclick="plusTotalQuestion(this)" class="plus"></button>
                                 </div>
                             </div>
                             <button  style="float: left" onclick="getTopic()" class="btn btn-success">Lọc chuyên đề</button>
@@ -63,7 +63,8 @@
                             <label for="formGroupExampleInput2">Chuyên đề</label>
                             <div class="topic">
                             </div>
-                            <input type="hidden" name="" id="row" value="">
+                            <input type="hidden" name="" id="numberRowMatrix" value="1">
+
                         </div>
                     </div>
                     
@@ -82,7 +83,7 @@
                                 <th>%</th>
                             </tr>
                         </thead>
-                        <tbody >
+                        <tbody  >
                             @php
                             $arr_difficult = array('NB', 'TH', 'VD', 'VC');
                             @endphp

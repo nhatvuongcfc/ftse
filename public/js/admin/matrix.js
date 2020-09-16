@@ -1,90 +1,51 @@
-$('[data-toggle="tooltip"]').tooltip();
-$("#create_subject").change(function() {
-    var subject_id = $(this).val();
-    getTopic(subject_id);
-});
-
-function plus_number_question() {
-    var number = $('.number_question').val();
-    number++;
-    $('.number_question').attr("value", parseInt(number));
+// $('[data-toggle="tooltip"]').tooltip();
+//NHẤN NÚT LỌC CHUYÊN ĐỀ
+function filterTopic() {
+    var groupId = $("#selectGroup option:selected").val();
+    var subjectId = $("#selectSubject option:selected").val();
 }
-
-function minus_number_question() {
-    if ($('.number_question').val() == 0) {
+//NHÂN NÚT SELECT MÔN HỌC
+function selectSubject(subjectId) {
+    var groupId = $("#selectGroup option:selected").val();
+    // var url = window.location.pathname;
+    // if (url.includes('edit')) {
+    //     var matrixId = $("#matrixId").val();
+    //     getTopicEdit(matrixId);
+    // }
+    resetTable();
+    getTopic(subjectId, groupId);
+};
+// NHẤN NÚT SELECT KHỐI LỚP
+function selectGroup(groupId) {
+    var subjectId = $("#selectSubject option:selected").val();
+    resetTable();
+    getTopic(subjectId, groupId);
+};
+// TĂNG SỐ LƯỢNG CÂU HỎI
+function plusTotalQuestion() {
+    var number = $('.total-question').val();
+    number++;
+    // $(e).val(number);
+    $('.total-question').val(parseInt(number));
+}
+// GIẢM SỐ LƯỢNG CÂU HỎI
+function minusTotalQuestion() {
+    var number = $('.total-question').val();
+    if (number == 0) {
         return false;
     }
-    var number = $('.number_question').val();
     number--;
-    $('.number_question').attr("value", parseInt(number));
+    $('.total-question').val(parseInt(number));
 }
-$(".number_question").bind('change keyup', function() {
+// THAY ĐỔI SỐ LƯỢNG CÂU HỎI
+$(".total-question").bind('change keyup', function() {
     if ($(this).val().length == 0) {
         $(this).val('');
     }
     $(this).attr('value', $(this).val());
 });
-getUrl_topic();
-
-function getUrl_topic() {
-    var url = window.location.pathname;
-    if (url.includes('edit')) {
-        var matrix_id = $("#matrix_id").val();
-        getTopic_edit(matrix_id);
-    }
-}
-
-
-function getTopic_edit(matrix_id) {
-    var group_id = $("#create_group option:selected").val();
-    var subject_id = $("#create_subject option:selected").val();
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-    $.ajax({
-        type: 'post',
-        dataType: 'json',
-        url: '../edit/getTopic',
-        data: {
-            matrix_id: matrix_id,
-            group_id: group_id,
-            subject_id: subject_id
-        },
-        success: function(result) {
-            var topics = result.topics;
-            var details = result.details;
-            var content = "";
-            $("#row").val(details.length);
-            for (var detail of details) {
-                for (var topic of topics) {
-                    arr_topic.push(topic);
-                    if (detail.topic_id == topic.id) {
-                        content += '<div   class=" custom-control custom-checkbox">' +
-                            '<input checked type="checkbox"  onclick="topic_matrix(' + topic.id + ')"    name="topic[]" value="' + topic.id + '" class="topic-checkbox  custom-control-input" id="topic' + topic.id + '">' +
-                            '<label class="custom-control-label" for="topic' + topic.id + '">' + topic.name + '</label>' +
-                            '</div>';
-                        topics.splice(topics.indexOf(topic), 1);
-
-                    }
-                }
-            }
-            for (var topic of topics) {
-                content += '<div   class=" custom-control custom-checkbox">' +
-                    '<input type="checkbox" onclick="topic_matrix(' + topic.id + ')"    name="topic[]" value="' + topic.id + '" class="topic-checkbox  custom-control-input" id="topic' + topic.id + '">' +
-                    '<label class="custom-control-label" for="topic' + topic.id + '">' + topic.name + '</label>' +
-                    '</div>';
-            }
-            $(".topic").html(content);
-        },
-    });
-    resetTable();
-}
-
-function getTopic() {
-    var group_id = $("#create_group option:selected").val();
-    var subject_id = $("#create_subject option:selected").val();
+// IN CHUYÊN ĐỀ ĐÃ CHỌN
+function getTopic(subjectId, groupId) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -95,52 +56,77 @@ function getTopic() {
         dataType: 'json',
         url: './getTopic',
         data: {
-            group_id: group_id,
-            subject_id: subject_id
+            groupId: groupId,
+            subjectId: subjectId
         },
         success: function(result) {
             var topics = result.topics;
             var content = "";
             for (var topic of topics) {
                 content += '<div   class=" custom-control custom-checkbox">' +
-                    '<input type="checkbox" onclick="topic_matrix(' + topic.id + ')"    name="topic[]" value="' + topic.id + '" class="topic-checkbox  custom-control-input" id="topic' + topic.id + '">' +
+                    '<input type="checkbox" onclick="chooseTopic(this)"    name="topic[]" value="' + topic.id + '" class="topic-checkbox  custom-control-input" id="topic' + topic.id + '">' +
                     '<label class="custom-control-label" for="topic' + topic.id + '">' + topic.name + '</label>' +
                     '</div>';
             }
             $(".topic").html(content);
         },
     });
-    resetTable();
+    // resetTable();
 }
 
+function getTopic(subjectId, groupId) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'post',
+        dataType: 'json',
+        url: './getTopic',
+        data: {
+            groupId: groupId,
+            subjectId: subjectId
+        },
+        success: function(result) {
+            var topics = result.topics;
+            var content = "";
+            for (var topic of topics) {
+                content += '<div   class=" custom-control custom-checkbox">' +
+                    '<input type="checkbox" onclick="chooseTopic(this)"    name="topic[]" value="' + topic.id + '" class="topic-checkbox  custom-control-input" id="topic' + topic.id + '">' +
+                    '<label class="custom-control-label" for="topic' + topic.id + '">' + topic.name + '</label>' +
+                    '</div>';
+            }
+            $(".topic").html(content);
+        },
+    });
+    // resetTable();
+}
+// CHỌN CHUYÊN ĐỀ
+var arrTopicMatrix = []; // MẢNG CHỦ ĐỀ TRONG MA TRẬN
+var arrContentMatrix = []; // MẢNG NỘI DUNG TRONG MA TRẬN
 
 
-function resetTable() {
-    // $(".box_matrix").empty();
-    $('input[type=checkbox]').prop("checked", false);
-    arr_topic = [];
-    $("#row").val(arr_topic.length);
-
-};
-$(document).on("click", ".tag", function() {
-    $(this).remove();
-});
-var arr_topic = [];
-$(document).on("click", ".topic-checkbox", function() {
-    var id = $(this).val();
-    var check = $(this).is(':checked');
+function chooseTopic(e) {
+    // var indexTbody = parseInt($("#indexTbody").val());
+    var id = $(e).val();
+    var check = $(e).is(':checked');
     if (check == true) {
-        arr_topic.push(id);
-        $("#row").val(arr_topic.length);
-        topic_matrix(arr_topic);
+        var arrValueRow = [0, 0, 0, 0];
+        arrValueTable.push(arrValueRow);
+        arrTopicMatrix.push(id);
+        getMatrix(arrTopicMatrix);
     } else {
-        arr_topic = arr_topic.filter(item => item !== id);
-        $("#row").val(arr_topic.length);
-        topic_matrix(arr_topic);
+        var row = $(e).attr('data-row');
+        arrValueTable.splice(row, 1);
+        arrTopicMatrix = arrTopicMatrix.filter(item => item !== id);
+        getMatrix(arrTopicMatrix);
     }
-});
+};
+// IN BẢNG MA TRẬN
+var arrValueTable = [];
 
-function topic_matrix(arr_topic) {
+function getMatrix(array) {
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -149,158 +135,211 @@ function topic_matrix(arr_topic) {
     $.ajax({
         dataType: 'json',
         type: 'POST',
-        url: 'topic_matrix',
+        url: 'getMatrix',
         data: {
-            array: arr_topic
+            array: array
         },
         success: function(result) {
             var topics = result.topics;
             var content = "";
             key = 1;
-            var arr_difficult = ['NB', 'TH', 'VD', 'VC'];
-            var arr_NB = [];
-            var arr_TH = [];
-            var arr_VD = [];
-            var arr_VC = [];
-            var arr_number_topic = [];
+            var arrDifficult = ['NB', 'TH', 'VD', 'VC'];
+            var arrNB = [];
+            var arrTH = [];
+            var arrVD = [];
+            var arrVC = [];
+            var arrNumberTopic = [];
+            var row = 0;
+            var index = 1;
             for (var topic of topics) {
                 content += '<tr>' +
-                    '<td>' + key + '</td>' +
+                    '<td>' + index + '</td>' +
                     '<td>' +
                     '<div class="tag">' +
-                    '<input type="checkbox" class="topic_matrix" value=' + topic.id + ' />' +
+                    '<input type="checkbox" class="topic-matrix" value=' + topic.id + ' />' +
                     '<label for="">' + topic.name + '</label>' +
                     // '<i class="fa fa-times-circle"></i>' +
                     '</div>' +
                     '</td>';
-                for (var difficult of arr_difficult) {
+                var collumn = 0;
+                for (var difficult of arrDifficult) {
                     var space = '&nbsp';
-                    var id = difficult + key;
+                    var e = difficult + row;
                     content += '<td>' +
                         '<div class=" def-number-input number-input safari_only">' +
-                        '<button onclick="minus(' + id + ')"  class="minus"></button>' +
-                        '<input onfocus="focus_input(this)" data-topic=' + topic.id + ' onchange="change_number(this)" onkeyup="change_number(this)" class="number_matrix number_' + difficult + '" id="' + difficult + key + '" min="0" name="' + difficult + key + '" value="0" type="number">' +
-                        '<button onclick="plus(' + id + ')"  class="plus"></button>' +
+                        '<button onclick="minusQuestionMatrix(' + difficult + row + ')"  class="minus"></button>' +
+                        '<input data-row=' + row + ' data-collumn=' + collumn + ' class=" ' + row + collumn + ' number-matrix number-' + difficult + '" ' +
+                        'id="' + difficult + row + '" onfocus="focusInput(this)" data-topic=' + topic.id + ' ' +
+                        ' min="0" name="' + difficult + row + '" value="' + arrValueTable[row][collumn] + '" type="number">' +
+                        '<button onclick="plusQuestionMatrix(' + difficult + row + ')"  class="plus"></button>' +
                         '</div>' +
                         '</td>';
+                    collumn++;
                 }
-                content += '<td id="number_topic_' + key + '"></td>' +
-                    '<td id="persent_topic_' + key + '"></td>' +
+                content += '<td id="numberTopic' + row + '"></td>' +
+                    '<td id="persentTopic' + row + '"></td>' +
                     '</tr>';
-                key++;
+                row++;
+                index++;
             }
             content +=
                 '<tr>' +
                 ' <th colspan="2" style="text-align: center">Tổng số câu</th>';
-            for (var difficult of arr_difficult) {
-                content += '<th id="sum_' + difficult + '" style="text-align: center"></th>';
+            for (var difficult of arrDifficult) {
+                content += '<th id="sum' + difficult + '" style="text-align: center"></th>';
             }
-            content += '<th id="number_question_matrix"></th>' +
+            content += '<th id="numberQuestionMatrix"></th>' +
                 '<th></th>' +
                 '</tr>' +
                 '<tr>' +
                 ' <th colspan="2" style="text-align: center">% câu</th>';
-            for (var difficult of arr_difficult) {
-                content += '<th id="persent_' + difficult + '" style="text-align: center"></th>';
+
+            for (var difficult of arrDifficult) {
+                content += '<th id="persent' + difficult + '" style="text-align: center"></th>';
             }
             content += '<th></th>' +
-                '<th id="persent_question"></th>'
-            '</tr>';
-            $(".box_matrix").html(content);
-            row = key - 1;
-            number_question();
+                '<th id="persentQuestion"></th>' +
+                '</tr>';
+            $(".tbodyMatrix").html(content);
+            row = index - 1;
+            $("#numberRowMatrix").val(row);
+            calculateMatrix();
         }
     });
 }
 
-function focus_input(x) {
-    $(x).attr('value', '');
-}
+function resetTable() {
+    $(".tbodyMatrix").html("");
+    $('input[type=checkbox]').prop("checked", false);
+    arrTopicMatrix.length = 0;
+    arrValueTable.length = 0;
+    $("#numberRowMatrix").val(0);
+};
 
-function minus(x) {
-    var number = $(x).val();
+function focusInput(e) {
+    // console.log(e);
+    $(e).attr('value', '');
+}
+// GIẢM SỐ LƯỢNG CÂU HỎI TRONG BẢNG MA TRẬN
+function minusQuestionMatrix(e) {
+    var row = $(e).attr('data-row');
+    var collumn = $(e).attr('data-collumn');
+    var number = $(e).val();
     if (number == 0) {
         return false;
     }
     number--;
-    $(x).val(number);
-    number_question();
+    $(e).attr('value', number);
+    updateArrValueTable(number, row, collumn);
 }
-
-function plus(x) {
-    var number = $(x).val();
+//TĂNG SỐ LƯỢNG CÂU HỎI TRONG BẢNG MA TRẬN
+function plusQuestionMatrix(e) {
+    var row = $(e).attr('data-row');
+    var collumn = $(e).attr('data-collumn');
+    var totalQuestion = $(".total-question").val();
+    var numberQuestionMatrix = $("#numberQuestionMatrix").text();
+    // if (totalQuestion == 0) {
+    //     Swal.fire({
+    //         text: 'Vui lòng nhập số lượng câu hỏi',
+    //         icon: 'error',
+    //         timer: 2000,
+    //         showConfirmButton: false
+    //     });
+    //     return false;
+    // }
+    if (totalQuestion == numberQuestionMatrix) {
+        return false;
+    }
+    var number = $(e).val();
     number++;
-    $(x).val(number);
-    number_question();
-}
+    $(e).attr('value', number);
 
-function change_number(x) {
-    if ($(x).val().length == 0) {
-        $(x).val('');
+    // calculateMatrix();
+    updateArrValueTable(number, row, collumn);
+}
+// THAY ĐỔI SỐ LƯỢNG CÂU HỎI TRONG BẢNG MA TRẬN
+function changeQuestionMatrix(e) {
+    var number = $(e).val();
+    console.log(number.length);
+    if (number.length == 0) {
+        $(e).val('');
     }
-    $(x).attr('value', $(x).val());
-    number_question();
+    var totalQuestion = $(".total-question").val();
+    var numberQuestionMatrix = $("#numberQuestionMatrix").text();
+    if (totalQuestion == numberQuestionMatrix) {
+        return false;
+    }
+    $(e).attr('value', number);
+    calculateMatrix(e);
 }
 
+function updateArrValueTable(number, row, collumn) {
+    for (var i = 0; i < arrValueTable.length; i++) {
+        for (var j = 0; j < 4; j++) {
+            if (i == row && j == collumn) {
+                arrValueTable[i][j] = number;
+            }
+        }
+    }
 
-function number_question() {
+    calculateMatrix();
+}
 
-    var row = $("#row").val();
-    // console.log(row);
-    var arr_difficult = ['NB', 'TH', 'VD', 'VC'];
-    var number_question_matrix = 0
-    for (var i = 1; i <= row; i++) {
-        var sum_number_topic = 0;
-        for (var j = 0; j < arr_difficult.length; j++) {
-            var string = arr_difficult[j] + i;
-            var number_topic = parseInt($('input[name="' + string + '"]').val());
+// TÍNH TOÁN TRONG BẢNG MA TRẬN
+function calculateMatrix(e) {
+    var totalQuestion = $(".total-question").val();
 
-            sum_number_topic += number_topic;
-            number_question_matrix += number_topic;
+    var arrDifficult = ['NB', 'TH', 'VD', 'VC'];
+    var numberQuestionMatrix = 0;
+    for (var i = 0; i < arrValueTable.length; i++) {
+        var sumNumberTopic = 0;
+        for (var j = 0; j < arrDifficult.length; j++) {
+            var string = arrDifficult[j] + i;
+            // console.log(string);
+            var numberTopic = parseInt($('input[name="' + string + '"]').val());
+            // console.log(numberTopic);
+            sumNumberTopic += numberTopic;
+            numberQuestionMatrix += numberTopic;
         }
 
-        // console.log(number_question_matrix);
-        $('#number_topic_' + i).html(sum_number_topic);
-        $('#number_question_matrix').html(number_question_matrix);
+        // console.log(numberQuestionMatrix);
+        $('#numberTopic' + i).html(sumNumberTopic);
+        $('#numberQuestionMatrix').html(numberQuestionMatrix);
     }
-    for (var difficult of arr_difficult) {
-        var number_difficult = 0;
-        $(".number_" + difficult).each(function() {
-            number_difficult += parseInt($(this).val());
+    for (var difficult of arrDifficult) {
+        var numberDifficult = 0;
+        $(".number-" + difficult).each(function() {
+            numberDifficult += parseInt($(this).val());
         });
-        $('#sum_' + difficult).html(number_difficult);
+        $('#sum' + difficult).html(numberDifficult);
     }
-    persent_question(number_question_matrix);
-}
-
-function persent_question(number_question_matrix) {
-    var row = $("#row").val();
-    var arr_difficult = ['NB', 'TH', 'VD', 'VC'];
-    for (var i = 1; i <= row; i++) {
-        if (number_question_matrix == 0) {
-            $('#persent_topic_' + i).text("0%");
-            $("#persent_question").text("0%");
+    // persentQuestion(numberQuestionMatrix);
+    // PHẦN TRẮM
+    for (var i = 0; i < arrValueTable.length; i++) {
+        if (numberQuestionMatrix == 0) {
+            $('#persentTopic' + i).text("0%");
+            $("#persentQuestion").text("0%");
         } else {
-            var persent_topic = Math.round($('#number_topic_' + i).text() / number_question_matrix * 100);
-            $('#persent_topic_' + i).text(persent_topic + "%");
-            $("#persent_question").text("100%");
+            var persentTopic = Math.round($('#numberTopic' + i).text() / numberQuestionMatrix * 100);
+            $('#persentTopic' + i).text(persentTopic + "%");
+            $("#persentQuestion").text("100%");
 
         }
     }
-    for (var difficult of arr_difficult) {
-        if (number_question_matrix == 0) {
-            $('#persent_' + difficult).text("0%");
-            // $("#persent_question").text("100%");
+    for (var difficult of arrDifficult) {
+        if (numberQuestionMatrix == 0) {
+            $('#persent' + difficult).text("0%");
+            // $("#persentQuestion").text("100%");
         } else {
-            var persent_difficult = Math.round($("#sum_" + difficult).text() / number_question_matrix * 100);
-            $('#persent_' + difficult).text(persent_difficult + "%");
+            var persentdifficult = Math.round($("#sum" + difficult).text() / numberQuestionMatrix * 100);
+            $('#persent' + difficult).text(persentdifficult + "%");
         }
     }
 }
 
-function submit() {
 
-    if ($('#name_matrix').length == 0) {
+function postCreateMatrix() {
+    if (!$('#nameMatrix').val()) {
         Swal.fire({
             text: 'Tên ma trận không được trống',
             icon: 'error',
@@ -309,11 +348,21 @@ function submit() {
         });
         return false;
     }
-    var number_question = $(".number_question").val();
-    var number_question_matrix = $("#number_question_matrix").text();
-    if (($("#number_question_matrix").length == 0)) {
+    var totalQuestion = $(".total-question").val();
+    console.log(totalQuestion);
+    var numberQuestionMatrix = $("#numberQuestionMatrix").text();
+    if (totalQuestion == 0) {
         Swal.fire({
-            text: 'Ma trận đề không được trống',
+            text: 'Vui lòng nhập số lượng câu hỏi',
+            icon: 'error',
+            timer: 2000,
+            showConfirmButton: false
+        });
+        return false;
+    }
+    if (totalQuestion < 10) {
+        Swal.fire({
+            text: 'Số lượng câu hỏi tối thiểu 10 câu',
             icon: 'error',
             timer: 2000,
             showConfirmButton: false
@@ -321,7 +370,7 @@ function submit() {
         return false;
     }
 
-    if (number_question != number_question_matrix) {
+    if (totalQuestion != numberQuestionMatrix) {
         Swal.fire({
             title: 'Nhập lại ma trận',
             text: 'Số lượng câu hỏi trong ma trận không đúng',
@@ -331,36 +380,35 @@ function submit() {
         });
         return false;
     }
-
-    var group_id = $("#create_group option:selected").val();
-    var subject_id = $("#create_subject option:selected").val();
-    var name = $('#name_matrix').val();
-    var matrix_id = $('#matrix_id').val();
-    var arr_topic = [];
-    var arr_NB = [];
-    var arr_TH = [];
-    var arr_VD = [];
-    var arr_VC = [];
-    $(".topic_matrix").each(function() {
+    var groupId = $("#selectGroup option:selected").val();
+    var subjectId = $("#selectSubject option:selected").val();
+    var name = $('#nameMatrix').val();
+    var matrixId = $('#matrixId').val();
+    var arrTopic = [];
+    var arrNB = [];
+    var arrTH = [];
+    var arrVD = [];
+    var arrVC = [];
+    $(".topic-matrix").each(function() {
         var topic_id = $(this).val();
-        arr_topic.push(topic_id);
+        arrTopic.push(topic_id);
     });
-    var arr_difficult = ['NB', 'TH', 'VD', 'VC'];
-    $(".number_NB").each(function() {
+    var arrDifficult = ['NB', 'TH', 'VD', 'VC'];
+    $(".number-NB").each(function() {
         var number = $(this).val();
-        arr_NB.push(number);
+        arrNB.push(number);
     });
-    $(".number_TH").each(function() {
+    $(".number-TH").each(function() {
         var number = $(this).val();
-        arr_TH.push(number);
+        arrTH.push(number);
     });
-    $(".number_VD").each(function() {
+    $(".number-VD").each(function() {
         var number = $(this).val();
-        arr_VD.push(number);
+        arrVD.push(number);
     });
-    $(".number_VC").each(function() {
+    $(".number-VC").each(function() {
         var number = $(this).val();
-        arr_VC.push(number);
+        arrVC.push(number);
     });
     var url = window.location.href.indexOf('edit');
     // console.log(url.indexOf('edit'));
@@ -380,16 +428,16 @@ function submit() {
         type: type,
         url: "./",
         data: {
-            matrix_id: matrix_id,
+            matrixId: matrixId,
             name: name,
-            number_question: number_question,
-            group_id: group_id,
-            subject_id: subject_id,
-            arr_topic: arr_topic,
-            arr_NB: arr_NB,
-            arr_TH: arr_TH,
-            arr_VD: arr_VD,
-            arr_VC: arr_VC,
+            numberQuestion: totalQuestion,
+            groupId: groupId,
+            subjectId: subjectId,
+            arrTopic: arrTopic,
+            arrNB: arrNB,
+            arrTH: arrTH,
+            arrVD: arrVD,
+            arrVC: arrVC,
         },
         success: function(result) {
             console.log(result);
@@ -406,6 +454,70 @@ function submit() {
     });
 
 }
+
+getUrl();
+
+function getUrl() {
+    var url = window.location.pathname;
+    // console.log(url.includes('edit'));
+    if (url.includes('edit')) {
+        var matrixId = $("#matrixId").val();
+        getTopicEdit(matrixId);
+    }
+}
+
+
+function getTopicEdit(matrixId) {
+    var groupId = $("#selectGroup option:selected").val();
+    var subjectId = $("#selectSubject option:selected").val();
+    console.log()
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'post',
+        dataType: 'json',
+        url: '../edit/getTopic',
+        data: {
+            matrixId: matrixId,
+            groupId: groupId,
+            subjectId: subjectId
+        },
+        success: function(result) {
+            var topics = result.topics;
+            var details = result.details;
+            console.log(topics);
+            console.log(details);
+            var content = "";
+            // var arrTopic = [];
+            $("#numberRowMatrix").val(details.length);
+            for (var detail of details) {
+                for (var topic of topics) {
+                    // arrTopic.push(topic);
+                    if (detail.topic_id == topic.id) {
+                        content += '<div   class=" custom-control custom-checkbox">' +
+                            '<input checked type="checkbox"  onclick="topicMatrix(' + topic.id + ')"    name="topic[]" value="' + topic.id + '" class="topic-checkbox  custom-control-input" id="topic' + topic.id + '">' +
+                            '<label class="custom-control-label" for="topic' + topic.id + '">' + topic.name + '</label>' +
+                            '</div>';
+                        topics.splice(topics.indexOf(topic), 1);
+
+                    }
+                }
+            }
+            for (var topic of topics) {
+                content += '<div   class=" custom-control custom-checkbox">' +
+                    '<input type="checkbox" onclick="topicMatrix(' + topic.id + ')"    name="topic[]" value="' + topic.id + '" class="topic-checkbox  custom-control-input" id="topic' + topic.id + '">' +
+                    '<label class="custom-control-label" for="topic' + topic.id + '">' + topic.name + '</label>' +
+                    '</div>';
+            }
+            $(".topic").html(content);
+        },
+    });
+    resetTable();
+}
+
 var checkbox = $('table tbody input[type="checkbox"]');
 $("#selectAll").click(function() {
     if (this.checked) {
@@ -464,10 +576,11 @@ function delete_one(id) {
 
 function delete_mul() {
     var selectAll = $('#selectAll').is(':checked');
-    if (selectAll == true) {
-        delete_some();
-    } else {
+    // console.log(selectAll);
+    if (selectAll) {
         delete_all();
+    } else {
+        delete_some();
     }
 }
 
@@ -562,4 +675,8 @@ function delete_some() {
             });
         }
     });
+}
+
+function test() {
+    $("#exampleModal").css();
 }

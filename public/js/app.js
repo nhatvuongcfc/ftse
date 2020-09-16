@@ -49821,10 +49821,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/sass/user/index.scss":
-/*!****************************************!*\
-  !*** ./resources/sass/user/index.scss ***!
-  \****************************************/
+/***/ "./resources/sass/app.scss":
+/*!*********************************!*\
+  !*** ./resources/sass/app.scss ***!
+  \*********************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -49832,10 +49832,32 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/sass/user/login.scss":
-/*!****************************************!*\
-  !*** ./resources/sass/user/login.scss ***!
-  \****************************************/
+/***/ "./resources/sass/card.scss":
+/*!**********************************!*\
+  !*** ./resources/sass/card.scss ***!
+  \**********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/card1.scss":
+/*!***********************************!*\
+  !*** ./resources/sass/card1.scss ***!
+  \***********************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
+
+/***/ }),
+
+/***/ "./resources/sass/timeline.scss":
+/*!**************************************!*\
+  !*** ./resources/sass/timeline.scss ***!
+  \**************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -49844,15 +49866,17 @@ __webpack_require__.r(__webpack_exports__);
 /***/ }),
 
 /***/ 0:
-/*!*****************************************************************************************************!*\
-  !*** multi ./resources/js/app.js ./resources/sass/user/index.scss ./resources/sass/user/login.scss ***!
-  \*****************************************************************************************************/
+/*!***************************************************************************************************************************************************!*\
+  !*** multi ./resources/js/app.js ./resources/sass/app.scss ./resources/sass/card.scss ./resources/sass/timeline.scss ./resources/sass/card1.scss ***!
+  \***************************************************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! C:\Users\HP\Documents\GitHub\final_ftse\resources\js\app.js */"./resources/js/app.js");
-__webpack_require__(/*! C:\Users\HP\Documents\GitHub\final_ftse\resources\sass\user\index.scss */"./resources/sass/user/index.scss");
-module.exports = __webpack_require__(/*! C:\Users\HP\Documents\GitHub\final_ftse\resources\sass\user\login.scss */"./resources/sass/user/login.scss");
+__webpack_require__(/*! C:\Users\HP\Documents\GitHub\ftse\resources\js\app.js */"./resources/js/app.js");
+__webpack_require__(/*! C:\Users\HP\Documents\GitHub\ftse\resources\sass\app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! C:\Users\HP\Documents\GitHub\ftse\resources\sass\card.scss */"./resources/sass/card.scss");
+__webpack_require__(/*! C:\Users\HP\Documents\GitHub\ftse\resources\sass\timeline.scss */"./resources/sass/timeline.scss");
+module.exports = __webpack_require__(/*! C:\Users\HP\Documents\GitHub\ftse\resources\sass\card1.scss */"./resources/sass/card1.scss");
 
 
 /***/ })

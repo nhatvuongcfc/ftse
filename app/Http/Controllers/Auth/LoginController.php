@@ -6,7 +6,8 @@ use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Http\Request;
+use App\Http\Requests\LoginRequest;
 class LoginController extends Controller
 {
     /*
@@ -38,16 +39,45 @@ class LoginController extends Controller
     {
         $this->middleware('guest')->except('logout');
     }
-    public function index(){
-        return view('user.login');
+    public function getLogin(){
+        return view('frontend.login');
     }
-    public function redirectPath(){
-        $role = Auth::user()->roles()->first();
-        if($role->name=='Student'){
-            return '/';
-        }
-        else{
-            return '/admin'  ;
+    public function postLogin(Request $request){
+        $validate=$request->validate([
+            'email'=>'bail|required|email|',
+            'password'=>'bail|required',
+        ]);
+        // $validated = $request->validated();
+        $login=[
+            'email'=>$request->email,
+            'password'=>$request->password,
+        ];
+        if (Auth::attempt($login)) {
+            $role = Auth::user()->roles()->first();
+            if($role->name=='Student'){
+                return redirect('/student'); 
+            }
+            else{
+                return redirect('/admin');
+            }
+            // return redirect('admincp');
+        } else {
+            return redirect()->back()->with('status', 'Email hoặc Password không chính xác');
         }
     }
+    // public function redirectPath(){
+    //     $role = Auth::user()->roles()->first();
+    //     if($role->name=='Student'){
+    //     // dd($role->name);   
+    //     return redirect('/'); 
+    //         // return view('front-end.index');
+    //     }
+    //     else{
+    //         return redirect('/admin');
+    //     }
+    // }
+    public function logout(Request $request) {
+        Auth::logout();
+        return redirect('/');
+      }
 }

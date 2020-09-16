@@ -7,9 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Answer extends Model
 {
     protected $table="answers";
-    protected $fillable=['content','question_id','isTrue'];
+    protected $fillable=['A','B','C','D','question_id'];
     public function question (){
-        return $this->belongsTo('App\Model\Question');
+        return $this->hasOne('App\Model\Question');
     }
     
     

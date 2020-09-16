@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Question;
+use App\Model\Question;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminQuestionController extends Controller
 {

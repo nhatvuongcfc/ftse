@@ -8,8 +8,7 @@ use Faker\Generator as Faker;
 $factory->define(Question::class, function (Faker $faker) {
     return [
         'content'=>$faker->text,
-        'topic_id'=>random_int(1,5),
+        'topic_id'=>random_int(1,24),
         'difficult_id'=>random_int(1,3),
-        'test_id'=>'1'
     ];
 });

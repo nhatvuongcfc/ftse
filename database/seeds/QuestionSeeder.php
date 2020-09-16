@@ -12,23 +12,13 @@ class QuestionSeeder extends Seeder
     public function run()
     {
         $faker = \Faker\Factory::create();
-        for($i=1; $i<=60; $i++){
-            if($i<=20){
+        for($i=1; $i<=200; $i++){
                 DB::table('questions')
                 ->insert([
                     'content'=>$faker->text,
-                    'topic_id'=>random_int(1,5),
-                    'difficult_id'=>random_int(1,4),
-                ]);
-            }
-            else{
-                DB::table('questions')
-                ->insert([
-                    'content'=>$faker->text,
-                    'topic_id'=>random_int(1,5),
+                    'topic_id'=>random_int(1,24),
                     'difficult_id'=>random_int(1,3),
                 ]);
-            }
         }
     }
 }

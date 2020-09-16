@@ -15,9 +15,13 @@ function create() {
     });
 }
 
-function choose_matrix(matrix_id) {
+function chooseMatrix(matrixId) {
     // console.log(matrix_id);
-    $("#matrix-input").val(matrix_id);
+
+    var string = './created/' + matrixId;
+    console.log(string);
+    $("#hrefSave").attr('href', string);
+
 }
 
 function toggleIcon(e) {
@@ -32,7 +36,7 @@ $('.panel-group').on('shown.bs.collapse', toggleIcon);
 function matrix() {
     window.location = 'test/create/matrix';
 }
-$("#datetimepicker").datetimepicker();
+// $("#datetimepicker").datetimepicker();
 
 function plus_number_question() {
     var number = $('.number_question').val();
@@ -110,18 +114,8 @@ function config(id) {
     window.location = "/admin/test/config/" + id;
 }
 
-// $("#myRange").on('change', 'input', function() {
-//     console.log('ok');
-//     // $('#value_permutation').text(val);
-//     // var content = "";
-//     // for (var i = 1; i <= val; i++) {
-//     //     content += '<input type="text" class="form-control" id="name_code_' + i + '">';
-//     // }
-//     // $(".card-code").html(content);
-// });
 
 function change_permutation(val) {
-    // console.log('pk');
     $('#value_permutation').text(val);
     var content = "";
     for (var i = 1; i <= val; i++) {
@@ -130,9 +124,9 @@ function change_permutation(val) {
     $(".card-code").html(content);
 }
 
-$('#number_permutation').on('input', function() {
+$('#numberPermutation').on('input', function() {
 
-    $('#val_permutation').html(this.value);
+    $('#valPermutation').html(this.value);
 });
 
 function hide_collaspe() {
@@ -175,16 +169,16 @@ function store() {
 
             // if (result == '202') {
             console.log(result);
-            // Swal.fire({
-            //     title: 'Tạo đề thi thành công',
-            //     icon: 'success',
-            //     timer: 3000,
-            //     showConfirmButton: false
-            // });
-            // setTimeout(function() {
-            //     window.location = "/admin/test";
+            Swal.fire({
+                title: 'Tạo đề thi thành công',
+                icon: 'success',
+                timer: 3000,
+                showConfirmButton: false
+            });
+            setTimeout(function() {
+                window.location = "/admin/test";
 
-            // }, 500);
+            }, 500);
             // // }
 
         },
@@ -240,26 +234,24 @@ function created_auto(matrix_id) {
         },
     });
 }
-var difficult = $(".select_difficult").find('option:selected').val();
-var topic_id = $(".select_topic").find('option:selected').val();
-getQuestion(topic_id, difficult);
 
-function select_topic(topic_id) {
-    // console.log(topic_id);
-    var difficult = $(".select_difficult").find('option:selected').val();
-    // console.log(difficult);
-    getQuestion(topic_id, difficult);
-}
-
-function select_difficult(difficult) {
+function selectTopic(topicId) {
+    console.log(topicId);
+    var difficult = $(".selectDifficult").find('option:selected').val();
     console.log(difficult);
-    var topic = $(".select_topic").find('option:selected').val();
-    console.log(topic);
-    getQuestion(topic_id, difficult);
+    getQuestion(topicId, difficult);
 }
 
-function getQuestion(topic_id, difficult) {
-    var matrix_id = $("#matrix_id").val();
+function selectDifficult(difficult) {
+    console.log(difficult);
+    var topic = $(".selectTopic").find('option:selected').val();
+    console.log(topic);
+    getQuestion(topicId, difficult);
+}
+
+function getQuestion(topicId, difficult) {
+    // console.log(difficult);
+    var matrixId = $("#matrixId").val();
     $.ajaxSetup({
         headers: {
             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -270,33 +262,184 @@ function getQuestion(topic_id, difficult) {
         dataType: 'json',
         url: '/admin/tests/created/getQuestion',
         data: {
-            topic_id: topic_id,
+            topicId: topicId,
             difficult: difficult,
-            matrix_id: matrix_id
+            matrixId: matrixId
         },
         success: function(result) {
-            var number_question = result.number_question;
-            var number_matrix = result.number_matrix;
+            console.log(result);
+            var numberQuestion = result.number_question;
+            var numberMatrix = result.number_matrix;
             var questions = result.questions;
             var content = "";
             var stt = 1;
             for (var question of questions) {
-                content += '<tr>' +
+                content += '<tr class="tr_export_' + question.id + '" style="cursor:pointer"  onclick="getContent(' + question.id + ')" >' +
                     '<td>' +
                     '<div class="custom-control  custom-checkbox custom-control-inline">' +
-                    '<input type="checkbox" name="options[]" class=" checkbox_some custom-control-input" id="' + question.id + '">' +
-                    '<label style="margin-bottom:2px" class="custom-control-label" for="' + question.id + '"></label>' +
+                    '<input  type="checkbox" onclick="chosseExportQuestion(' + question.id + ')" name="exportQuestion[]" class="export-question custom-control-input" id="checkExport' + question.id + '">' +
+                    '<label onclick="chosseExportQuestion(' + question.id + ')" style="margin-bottom:2px" class="custom-control-label" for="' + question.id + '"></label>' +
                     '</div>' +
                     '</td>' +
                     '<th scope="row">' + stt + '</th>' +
-                    '<td>' + question.content + '</td>' +
+                    '<td style="display:block ruby">' + question.content + '</td>' +
                     '</tr>';
                 stt++;
-            }
-            $(".box-question").html(content);
-            $("#number_question").text('Số câu trong CSDL: ' + number_question);
-            $("#number_matrix").text('Số câu tối đa: ' + number_matrix[0]);
 
+            }
+            $(".box-export").html(content);
+            $("#numberQuestion").text('Số câu trong CSDL: ' + numberQuestion);
+            $("#numberTopicMatrix").text('Số câu tối đa: ' + numberMatrix[0]);
         }
     });
 }
+
+function chosseExportQuestion(id) {
+    var check = $('#checkExport' + id);
+    // console.log(check);
+    check = $('#checkExport' + id).prop("checked");
+    if (check) {
+        $('#checkExport' + id).prop('checked', false);
+        $(".tr_export_" + id).removeClass('alert alert-primary');
+    } else {
+        $('#checkExport' + id).prop('checked', true);
+        $(".tr_export_" + id).addClass('alert alert-primary');
+    }
+}
+
+function chosseImportQuestion(id) {
+    var check = $('#checkImport' + id);
+    check = $('#checkImport' + id).prop("checked");
+    if (check) {
+        $('#checkImport' + id).prop('checked', false);
+        $(".tr-import-" + id).removeClass('alert alert-primary');
+    } else {
+        $('#checkImport' + id).prop('checked', true);
+        $(".tr-import-" + id).addClass('alert alert-primary');
+    }
+    return true;
+}
+vararrExport = [];
+var arrImport = [];
+
+function exportQuestion() {
+    var checkbox = $(".export-question");
+    var checked = checkbox.filter(':checked');
+    checked.map(function() {
+        var id = this.id;
+        arrExport.push(id.slice(13, id.length));
+    });
+    getQuestionExport(arr_export);
+}
+
+function importQuestion() {
+    // console.log('ok');
+    var checkbox = $(".import-question");
+    // console.log(checkbox);
+    var checked = checkbox.filter(':checked');
+    checked.map(function() {
+        var id = this.id;
+        arrImport.push(id.slice(13, id.length));
+    });
+    var arrNew = arrExport.filter(item => !arrImport.includes(item));
+    arrExport = arrNew;
+
+    unchosseImportQuestion(arrImport);
+    getQuestionExport(arrNew);
+}
+
+function unchosseImportQuestion(arrImport) {
+    console.log(arrImport);
+    for (var item of arrImport) {
+        chosseExportQuestion(item);
+    }
+    return true;
+}
+
+function getContent(id) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'post',
+        dataType: 'json',
+        url: '/admin/tests/created/getContent',
+        data: {
+            id: id
+        },
+        success: function(result) {
+            var questions = result.questions;
+            var content = "";
+            var STT = 1
+            content += '<div class="col_box_test" id="box_test_one" overflow-y: scroll;">' +
+                '<div class="question" id="question_' + STT + '">' +
+                '<div class="myquestionarea" onload="getAnswer(' + questions.id + ')" id="testing_answer_' + questions.id + '_' + STT + '">' +
+                '<p><b>Question ' + STT + '</b></p>' +
+                '<div class="alert alert-warning">' +
+                '<p>' + questions.content + '</p>' +
+                '</div>' +
+                '<div>';
+            var answers = questions.answers;
+            var alphabel = ['A', 'B', 'C', 'D'];
+            for (var j in answers) {
+                content += '<label class="fulltest_answer_label" id="test_answer_label_' + answers[j].id + '">' +
+                    '<strong for="' + answers[j].id + '" class="alphabel">' + alphabel[j] + '</strong> ' +
+                    '<span>' +
+                    '<p>' + answers[j].content + '</p>' +
+                    '</span>' +
+                    '</label>'
+            }
+            content += '</div></div></div>';
+            STT++;
+            $(".box_content").html(content);
+        }
+    });
+
+}
+
+function getQuestionExport(array) {
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+    $.ajax({
+        type: 'post',
+        dataType: 'json',
+        url: '/admin/tests/created/exportQuestion',
+        data: {
+            array: array
+        },
+        success: function(result) {
+            var questions = result.questions;
+            var content = "";
+            var stt = 1;
+            var numberChoose = questions.length;
+            for (var question of questions) {
+                content += '<tr class="tr-import-' + question.id + '" style="cursor:pointer"  onclick="getContent(' + question.id + ')" >' +
+                    '<td>' +
+                    '<div class="custom-control  custom-checkbox custom-control-inline">' +
+                    '<input  type="checkbox" onclick="chosseImportQuestion(' + question.id + ')" name="import-question[]" class="import-question custom-control-input" id="checkImport' + question.id + '">' +
+                    '<label onclick="chosseImportQuestion(' + question.id + ')" style="margin-bottom:2px" class="custom-control-label" for="' + question.id + '"></label>' +
+                    '</div>' +
+                    '</td>' +
+                    '<th scope="row">' + stt + '</th>' +
+                    '<td style="display:block ruby">' + question.content + '</td>' +
+                    '</tr>';
+                stt++;
+
+            }
+            $(".box-import").html(content);
+            $("#numberChoose").text('Số câu đã chọn: ' + numberChoose);
+        }
+    });
+}
+
+function collapseHandsome() {
+    var difficult = $(".select-difficult").find('option:selected').val();
+    var topicId = $(".select-topic").find('option:selected').val();
+    getQuestion(topicId, difficult);
+}
+

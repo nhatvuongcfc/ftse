@@ -1,0 +1,103 @@
+        .card-khs-list {
+            z-index: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+        }
+        
+        .card-kh {
+            margin: 30px auto;
+            width: 300px;
+            height: 300px;
+            border-radius: 40px;
+            /* box-shadow: 5px 5px 30px 7px rgba(0, 0, 0, 0.25), -5px -5px 30px 7px rgba(0, 0, 0, 0.22); */
+            cursor: pointer;
+            transition: 0.4s;
+        }
+        
+        .card-kh .card_image ::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            z-index: 1;
+            background: rgba(0, 0, 0, .5);
+            background: linear-gradient( 180deg, rgba(0, 0, 0, 0) 0%, #000 90%);
+            opacity: 1;
+            transform: translate3d(0, 0, 0) translateY(233%);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+            width: 100%;
+            height: 30%;
+            bottom: 0;
+            border-bottom-left-radius: 40px;
+            border-bottom-right-radius: 40px;
+        }
+        
+        .card-kh .card_image {
+            width: 100%;
+            height: 100%;
+            border-radius: 40px;
+            position: relative;
+        }
+        
+        .card-kh .card_image a img {
+            width: 100%;
+            height: 100%;
+            border-radius: 40px;
+            object-fit: cover;
+        }
+        /*         
+        .card-kh .card_image a ::after {
+            content: "";
+            position: absolute;
+            left: 0;
+            right: 0;
+            top: 0;
+            bottom: 0;
+            background: -webkit-gradient(linear, left top, left bottom, from(rgba(27, 28, 30, 0)), color-stop(90%, rgba(27, 28, 30, 0.8)));
+            background: linear-gradient(180deg, rgba(27, 28, 30, 0) 0%, rgba(27, 28, 30, 0.8) 90%);
+        } */
+        
+        .card-kh .card_title {
+            text-align: center;
+            border-radius: 0px 0px 40px 40px;
+            font-family: sans-serif;
+            font-weight: bold;
+            font-size: 30px;
+            margin-top: -80px;
+            height: 40px;
+        }
+        
+        .card-kh:hover {
+            transform: scale(0.9, 0.9);
+            /* box-shadow: 5px 5px 30px 15px rgba(0, 0, 0, 0.25), -5px -5px 30px 15px rgba(0, 0, 0, 0.22); */
+        }
+        
+        .title-white {
+            color: white;
+        }
+        
+        .title-black {
+            color: black;
+        }
+        
+        @media all and (max-width: 500px) {
+            .card-kh-list {
+                /* On small screens, we are no longer using row direction but column */
+                flex-direction: column;
+            }
+        }
+        /* .card {
+            margin: 30px auto;
+            width: 300px;
+            height: 300px;
+            border-radius: 40px;
+            background-image: url('https://i.redd.it/b3esnz5ra34y.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+      ranp;transition: 0.4s;
+        } */

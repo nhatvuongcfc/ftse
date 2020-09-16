@@ -51,7 +51,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach ($tests as $key=> $test)
+                    {{-- @foreach ($tests as $key=> $test)
                         <tr>
                             <td>{{ $key+1 }}</td>
                             <td><a href="{{ route('admin.test.show', $test->id) }}" >{{ $test->name }}</a></td>
@@ -76,7 +76,7 @@
                                  </div>
                              </td>
                         </tr>
-                    @endforeach
+                    @endforeach --}}
                 </tbody>
             </table>
         </div>

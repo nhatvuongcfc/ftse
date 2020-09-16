@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Personel;
+use App\Model\Personel;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminPersonelController extends Controller
 {

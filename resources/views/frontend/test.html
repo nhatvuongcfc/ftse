@@ -1,0 +1,209 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Responsive sidebar template with sliding effect and dropdown menu based on bootstrap 3">
+    <title>Sidebar template</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+    <style>
+        .menu-area {
+            background: #d61a5e
+        }
+        
+        .dropdown-menu {
+            padding: 0;
+            margin: 0;
+            border: 0 solid transition!important;
+            border: 0 solid rgba(0, 0, 0, .15);
+            border-radius: 0;
+            -webkit-box-shadow: 47px 49px 36px -24px rgba(238, 238, 238, 1);
+            -moz-box-shadow: 47px 49px 36px -24px rgba(238, 238, 238, 1);
+            box-shadow: 47px 49px 36px -24px rgba(238, 238, 238, 1);
+        }
+        
+        .mainmenu a,
+        .navbar-default .navbar-nav>li>a,
+        .mainmenu ul li a,
+        .navbar-expand-lg .navbar-nav .nav-link {
+            color: #000;
+            font-size: 16px;
+            text-transform: capitalize;
+            padding: 16px 15px;
+            font-family: 'Roboto', sans-serif;
+            display: block !important;
+        }
+        
+        .mainmenu .active a,
+        .mainmenu .active a:focus,
+        .mainmenu .active a:hover,
+        .mainmenu li a:hover,
+        .mainmenu li a:focus,
+        .navbar-default .navbar-nav>.show>a,
+        .navbar-default .navbar-nav>.show>a:focus,
+        .navbar-default .navbar-nav>.show>a:hover {
+            color: #000;
+            background: #EEEEEE;
+            outline: 0;
+        }
+        /*==========Sub Menu=v==========*/
+        
+        .mainmenu .collapse ul>li:hover>a {
+            background: #EEEEEE;
+        }
+        
+        .mainmenu .collapse ul ul>li:hover>a,
+        .navbar-default .navbar-nav .show .dropdown-menu>li>a:focus,
+        .navbar-default .navbar-nav .show .dropdown-menu>li>a:hover {
+            background: #EEEEEE;
+        }
+        
+        .mainmenu .collapse ul ul ul>li:hover>a {
+            background: #EEEEEE;
+        }
+        
+        .mainmenu .collapse ul ul,
+        .mainmenu .collapse ul ul.dropdown-menu {
+            background: #fff;
+        }
+        
+        .mainmenu .collapse ul ul ul,
+        .mainmenu .collapse ul ul ul.dropdown-menu {
+            background: #fff
+        }
+        
+        .mainmenu .collapse ul ul ul ul,
+        .mainmenu .collapse ul ul ul ul.dropdown-menu {
+            background: #fff
+        }
+        /******************************Drop-down menu work on hover**********************************/
+        
+        .mainmenu {
+            background: none;
+            border: 0 solid;
+            margin: 0;
+            padding: 0;
+            min-height: 20px;
+            width: 100%;
+        }
+        
+        @media only screen and (min-width: 767px) {
+            .mainmenu .collapse ul li:hover>ul {
+                display: block
+            }
+            .mainmenu .collapse ul ul {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                min-width: 250px;
+                display: none
+            }
+            /*******/
+            .mainmenu .collapse ul ul li {
+                position: relative
+            }
+            .mainmenu .collapse ul ul li:hover>ul {
+                display: block
+            }
+            .mainmenu .collapse ul ul ul {
+                position: absolute;
+                top: 0;
+                left: 100%;
+                min-width: 250px;
+                display: none
+            }
+            /*******/
+            .mainmenu .collapse ul ul ul li {
+                position: relative
+            }
+            .mainmenu .collapse ul ul ul li:hover ul {
+                display: block
+            }
+            .mainmenu .collapse ul ul ul ul {
+                position: absolute;
+                top: 0;
+                left: -100%;
+                min-width: 250px;
+                display: none;
+                z-index: 1
+            }
+        }
+        
+        @media only screen and (max-width: 767px) {
+            .navbar-nav .show .dropdown-menu .dropdown-menu>li>a {
+                padding: 16px 15px 16px 35px
+            }
+            .navbar-nav .show .dropdown-menu .dropdown-menu .dropdown-menu>li>a {
+                padding: 16px 15px 16px 45px
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="text-center">
+        <h2>Bootstrap 4 Multilevel Dropdown Menu</h2>
+    </div>
+
+    <div id="menu_area" class="menu-area">
+        <div class="container">
+            <div class="row">
+                <nav class="navbar navbar-light navbar-expand-lg mainmenu">
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item"><a href="" class="nav-link">TRANG CHỦ</a></li>
+
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
+                                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <li><a href="#">Action</a></li>
+                                    <li><a href="#">Another action</a></li>
+                                    <li><a href="#">Something else here</a></li>
+                                    <li class="dropdown">
+                                        <a class="dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown2</a>
+                                        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                            <li><a href="#">Action</a></li>
+                                            <li><a href="#">Another action</a></li>
+                                            <li><a href="#">Something else here</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </div>
+    <!-- page-wrapper -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        (function($) {
+            $('.dropdown-menu a.dropdown-toggle').on('click', function(e) {
+                if (!$(this).next().hasClass('show')) {
+                    $(this).parents('.dropdown-menu').first().find('.show').removeClass("show");
+                }
+                var $subMenu = $(this).next(".dropdown-menu");
+                $subMenu.toggleClass('show');
+
+                $(this).parents('li.nav-item.dropdown.show').on('hidden.bs.dropdown', function(e) {
+                    $('.dropdown-submenu .show').removeClass("show");
+                });
+
+                return false;
+            });
+        })(jQuery)
+    </script>
+</body>
+
+</html>

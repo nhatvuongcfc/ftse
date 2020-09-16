@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Role;
+use App\Model\Role;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class AdminRoleController extends Controller
 {

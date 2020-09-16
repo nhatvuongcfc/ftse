@@ -1,172 +1,634 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-
-    <title>Hello, world!</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
     <style>
         body {
-            font: normal 13px/20px Arial, Helvetica, sans-serif;
-            word-wrap: break-word;
-            background: #fff;
-            padding-top: 100px
+            color: #333;
+            font-family: 'Open Sans', sans-serif;
+            font-weight: 300;
         }
         
-        .countdown-label {
-            font: thin 15px Arial, sans-serif;
-            color: #65584c;
-            text-align: center;
-            text-transform: uppercase;
-            display: inline-block;
-            letter-spacing: 2px;
-            margin-top: 9px
+        h1,
+        h1+p {
+            margin: 30px 15px 0;
+            font-weight: 300;
         }
         
-        #countdown {
-            box-shadow: 0 1px 2px 0 rgba(1, 1, 1, 0.4);
-            width: 240px;
-            height: 96px;
-            text-align: center;
-            background: #f1f1f1;
-            border-radius: 5px;
-            margin: auto;
+        h1+p a {
+            color: #333;
         }
         
-        #countdown #tiles {
-            color: #fff;
-            position: relative;
-            z-index: 1;
-            text-shadow: 1px 1px 0px #ccc;
-            display: inline-block;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 20px;
-            border-radius: 5px 5px 0 0;
-            font-size: 48px;
-            font-weight: thin;
+        h1+p a:hover {
+            text-decoration: none;
+        }
+        
+        h2 {
+            margin: 60px 15px 0;
+            padding: 0;
+            font-weight: 300;
+        }
+        
+        h2 span {
+            margin-left: 1em;
+            color: #aaa;
+            font-size: 85%;
+        }
+        
+        .column {
+            margin: 15px 15px 0;
+            padding: 0;
+        }
+        
+        .column:last-child {
+            padding-bottom: 60px;
+        }
+        
+        .column::after {
+            content: '';
+            clear: both;
             display: block;
         }
         
-        .color-full {
-            background: #53bb74;
+        .column div {
+            position: relative;
+            float: left;
+            width: 300px;
+            height: 200px;
+            margin: 0 0 0 25px;
+            padding: 0;
         }
         
-        .color-half {
-            background: #ebc85d;
+        .column div:first-child {
+            margin-left: 0;
         }
         
-        .color-empty {
-            background: #e5554e;
+        .column div span {
+            position: absolute;
+            bottom: -20px;
+            left: 0;
+            z-index: -1;
+            display: block;
+            width: 300px;
+            margin: 0;
+            padding: 0;
+            color: #444;
+            font-size: 18px;
+            text-decoration: none;
+            text-align: center;
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+            opacity: 0;
         }
         
-        #countdown #tiles>span {
-            width: 70px;
-            max-width: 70px;
-            padding: 18px 0;
+        figure {
+            width: 300px;
+            height: 200px;
+            margin: 0;
+            padding: 0;
+            background: #fff;
+            overflow: hidden;
+        }
+        
+        figure:hover+span {
+            bottom: -36px;
+            opacity: 1;
+        }
+        /* Zoom In #1 */
+        
+        .hover01 figure img {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+        
+        .hover01 figure:hover img {
+            -webkit-transform: scale(1.3);
+            transform: scale(1.3);
+        }
+        /* Zoom In #2 */
+        
+        .hover02 figure img {
+            width: 300px;
+            height: auto;
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+        
+        .hover02 figure:hover img {
+            width: 350px;
+        }
+        /* Zoom Out #1 */
+        
+        .hover03 figure img {
+            -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+        
+        .hover03 figure:hover img {
+            -webkit-transform: scale(1);
+            transform: scale(1);
+        }
+        /* Zoom Out #2 */
+        
+        .hover04 figure img {
+            width: 400px;
+            height: auto;
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+        
+        .hover04 figure:hover img {
+            width: 300px;
+        }
+        /* Slide */
+        
+        .hover05 figure img {
+            margin-left: 30px;
+            -webkit-transform: scale(1.5);
+            transform: scale(1.5);
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+        
+        .hover05 figure:hover img {
+            margin-left: 0;
+        }
+        /* Rotate */
+        
+        .hover06 figure img {
+            -webkit-transform: rotate(15deg) scale(1.4);
+            transform: rotate(15deg) scale(1.4);
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+        
+        .hover06 figure:hover img {
+            -webkit-transform: rotate(0) scale(1);
+            transform: rotate(0) scale(1);
+        }
+        /* Blur */
+        
+        .hover07 figure img {
+            -webkit-filter: blur(3px);
+            filter: blur(3px);
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+        
+        .hover07 figure:hover img {
+            -webkit-filter: blur(0);
+            filter: blur(0);
+        }
+        /* Gray Scale */
+        
+        .hover08 figure img {
+            -webkit-filter: grayscale(100%);
+            filter: grayscale(100%);
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+        
+        .hover08 figure:hover img {
+            -webkit-filter: grayscale(0);
+            filter: grayscale(0);
+        }
+        /* Sepia */
+        
+        .hover09 figure img {
+            -webkit-filter: sepia(100%);
+            filter: sepia(100%);
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+        
+        .hover09 figure:hover img {
+            -webkit-filter: sepia(0);
+            filter: sepia(0);
+        }
+        /* Blur + Gray Scale */
+        
+        .hover10 figure img {
+            -webkit-filter: grayscale(0) blur(0);
+            filter: grayscale(0) blur(0);
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+        
+        .hover10 figure:hover img {
+            -webkit-filter: grayscale(100%) blur(3px);
+            filter: grayscale(100%) blur(3px);
+        }
+        /* Opacity #1 */
+        
+        .hover11 figure img {
+            opacity: 1;
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+        
+        .hover11 figure:hover img {
+            opacity: .5;
+        }
+        /* Opacity #2 */
+        
+        .hover12 figure {
+            background: #1abc9c;
+        }
+        
+        .hover12 figure img {
+            opacity: 1;
+            -webkit-transition: .3s ease-in-out;
+            transition: .3s ease-in-out;
+        }
+        
+        .hover12 figure:hover img {
+            opacity: .5;
+        }
+        /* Flashing */
+        
+        .hover13 figure:hover img {
+            opacity: 1;
+            -webkit-animation: flash 1.5s;
+            animation: flash 1.5s;
+        }
+        
+        @-webkit-keyframes flash {
+            0% {
+                opacity: .4;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        
+        @keyframes flash {
+            0% {
+                opacity: .4;
+            }
+            100% {
+                opacity: 1;
+            }
+        }
+        /* Shine */
+        
+        .hover14 figure {
             position: relative;
         }
         
-        #countdown .labels {
-            width: 100%;
-            height: 25px;
-            text-align: center;
+        .hover14 figure::before {
             position: absolute;
-            bottom: 8px;
+            top: 0;
+            left: -75%;
+            z-index: 2;
+            display: block;
+            content: '';
+            width: 50%;
+            height: 100%;
+            background: -webkit-linear-gradient(left, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .3) 100%);
+            background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, .3) 100%);
+            -webkit-transform: skewX(-25deg);
+            transform: skewX(-25deg);
         }
         
-        #countdown .labels li {
-            width: 102px;
-            font: bold 15px 'Droid Sans', Arial, sans-serif;
-            color: #f47321;
-            text-shadow: 1px 1px 0px #000;
-            text-align: center;
-            text-transform: uppercase;
-            display: inline-block;
+        .hover14 figure:hover::before {
+            -webkit-animation: shine .75s;
+            animation: shine .75s;
+        }
+        
+        @-webkit-keyframes shine {
+            100% {
+                left: 125%;
+            }
+        }
+        
+        @keyframes shine {
+            100% {
+                left: 125%;
+            }
+        }
+        /* Circle */
+        
+        .hover15 figure {
+            position: relative;
+        }
+        
+        .hover15 figure::before {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            z-index: 2;
+            display: block;
+            content: '';
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, .2);
+            border-radius: 100%;
+            -webkit-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+            opacity: 0;
+        }
+        
+        .hover15 figure:hover::before {
+            -webkit-animation: circle .75s;
+            animation: circle .75s;
+        }
+        
+        @-webkit-keyframes circle {
+            0% {
+                opacity: 1;
+            }
+            40% {
+                opacity: 1;
+            }
+            100% {
+                width: 200%;
+                height: 200%;
+                opacity: 0;
+            }
+        }
+        
+        @keyframes circle {
+            0% {
+                opacity: 1;
+            }
+            40% {
+                opacity: 1;
+            }
+            100% {
+                width: 200%;
+                height: 200%;
+                opacity: 0;
+            }
         }
     </style>
 </head>
 
 <body>
-    <input type="hidden" id="set-time" value="1" />
-    <div id="countdown">
-        <div id='tiles' class="color-full"></div>
+    <h1>CSS Image Hover Effects</h1>
+    <p>← <a href="https://www.nxworld.net/tips/css-image-hover-effects.html" target="_blank">View the article</a></p>
+
+    <h2>No Effect</h2>
+    <div class="column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
     </div>
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
-    <script>
-        var minutes = $('#set-time').val();
 
-        // var target_date = new Date().getTime() + ((minutes * 60) * 1000); // set the countdown date
-        var target_date = new Date().getTime() + (minutes * 1000); // set the countdown date
-        var time_limit = ((minutes * 60) * 1000);
-        //set actual timer
-        setTimeout(
-            function() {
-                alert('done');
-            }, time_limit);
+    <h2 id="demo01">1. Zoom In #1</h2>
+    <div class="hover01 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
-        var days, hours, minutes, seconds; // variables for time units
+    <h2 id="demo02">2. Zoom In #2</h2>
+    <div class="hover02 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
-        var countdown = document.getElementById("tiles"); // get tag element
+    <h2 id="demo03">3. Zoom Out #1</h2>
+    <div class="hover03 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
-        getCountdown();
+    <h2 id="demo04">4. Zoom Out #2</h2>
+    <div class="hover04 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
-        setInterval(function() {
-            getCountdown();
-        }, 1000);
-        console.log(new Date().getTime());
+    <h2 id="demo05">5. Slide</h2>
+    <div class="hover05 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
-        function getCountdown() {
+    <h2 id="demo06">6. Rotate<span>(+Zoom Out)</span></h2>
+    <div class="hover06 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
-            // find the amount of "seconds" between now and target
-            var current_date = new Date().getTime();
-            var seconds_left = (target_date - current_date) / 1000;
-            console.log(seconds_left);
-            if (seconds_left >= 0) {
-                // console.log(time_limit);
-                if ((seconds_left * 1000) < (time_limit / 2)) {
-                    $('#tiles').removeClass('color-full');
-                    $('#tiles').addClass('color-half');
+    <h2 id="demo07">7. Blur</h2>
+    <div class="hover07 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
-                }
-                if ((seconds_left * 1000) < (time_limit / 4)) {
-                    $('#tiles').removeClass('color-half');
-                    $('#tiles').addClass('color-empty');
-                }
+    <h2 id="demo08">8. Gray Scale</h2>
+    <div class="hover08 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
-                days = pad(parseInt(seconds_left / 86400));
-                seconds_left = seconds_left % 86400;
+    <h2 id="demo09">9. Sepia</h2>
+    <div class="hover09 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
-                hours = pad(parseInt(seconds_left / 3600));
-                seconds_left = seconds_left % 3600;
+    <h2 id="demo10">10. Blur + Gray Scale</h2>
+    <div class="hover10 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
-                minutes = pad(parseInt(seconds_left / 60));
-                seconds = pad(parseInt(seconds_left % 60));
+    <h2 id="demo11">11. Opacity #1</h2>
+    <div class="hover11 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
-                // format countdown string + set tag value
-                countdown.innerHTML = "<span>" + hours + ":</span><span>" + minutes + ":</span><span>" + seconds + "</span>";
+    <h2 id="demo12">12. Opacity #2</h2>
+    <div class="hover12 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
+    <h2 id="demo13">13. Flashing</h2>
+    <div class="hover13 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
+    <h2 id="demo14">14. Shine</h2>
+    <div class="hover14 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 
-            }
-
-
-
-        }
-
-        function pad(n) {
-            return (n < 10 ? '0' : '') + n;
-        }
-    </script>
+    <h2 id="demo15">15. Circle</h2>
+    <div class="hover15 column">
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=244" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=1024" /></figure>
+            <span>Hover</span>
+        </div>
+        <div>
+            <figure><img src="https://picsum.photos/300/200?image=611" /></figure>
+            <span>Hover</span>
+        </div>
+    </div>
 </body>
 
 </html>
